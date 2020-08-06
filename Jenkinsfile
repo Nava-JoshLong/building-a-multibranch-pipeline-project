@@ -63,6 +63,7 @@ pipeline
         }
       }
     }
+    /*
     stage('Build')
     {
       echo "=========== Build Stage ==========="
@@ -166,6 +167,7 @@ pipeline
         //#tested above?
       }
     }
+    */
   }
   post
   {
