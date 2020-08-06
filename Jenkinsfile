@@ -60,9 +60,9 @@ pipeline
     }
     stage('Build')
     {
-      echo "=========== Build Stage ==========="
       steps
       {
+        echo "=========== Build Stage ==========="
         //Code tagged with the search string or associated with the release is
         //gathered and placed on the Linux server into three directories -
         //DDL, DML, Code and Shell based on the folders (on server or on S3 or
@@ -73,9 +73,9 @@ pipeline
     }
     stage('Post Build Test')
     {
-      echo "=========== Post Build Test Stage ==========="
       steps
       {
+        echo "=========== Post Build Test Stage ==========="
         //Scan the code using Fortify/SonarQube and provide notification (log
         //and email) of any vulnerability and code quality issues which can be
         //sent to team distribution list. (Not clear if this step should be
@@ -84,9 +84,9 @@ pipeline
     }
     stage('Deploy')
     {
-      echo "=========== Deploy Stage ==========="
       steps
       {
+        echo "=========== Deploy Stage ==========="
         //Use SQLPlus plugin to deploy DDL and Code (not DML) to the test
         //database and schema as per the config files specified in the Notes
         //section below.
@@ -106,9 +106,9 @@ pipeline
     }
     stage('Post Deploy Test')
     {
-      echo "=========== Post Deploy Test Stage ==========="
       steps
       {
+        echo "=========== Post Deploy Test Stage ==========="
         //Use SQLPlus to call a SQL Procedure “SP_OPR_TEST_RELEASE” in the
         //target database with parameters (one of them release string – others
         //to be defined). Opera team to code this in PL/SQL. The procedure will
@@ -127,9 +127,9 @@ pipeline
     }
     stage('Release')
     {
-      echo "=========== Release Stage ==========="
       steps
       {
+        echo "=========== Release Stage ==========="
         //On clicking of the release button, obtain the latest build from the
         //release artefacts from the “Approved” build above.
 
@@ -143,9 +143,9 @@ pipeline
     }
     stage('Gate Review')
     {
-      echo "=========== Gate Review Stage ==========="
       steps
       {
+        echo "=========== Gate Review Stage ==========="
         //Oracle DBA to perform spot checks the release artifacts
 
         //Linux System Admin to perform spot checks on the release artifacts
