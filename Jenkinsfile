@@ -22,8 +22,7 @@ pipeline
         script
         {
           echo "=========== Scan Stage ==========="
-          try
-          {
+
             //Use string from user to search for tags
             //#log shows just the commit logs
             //#--pretty is the format of the output
@@ -34,9 +33,8 @@ pipeline
             returnStatus: true
             ) == 0
             echo "Tag Found: ${TAG_FOUND}"
-          }
           //#If the release tag is not found
-          catch(error)
+          if(!TAG_FOUND)
           {
             echo "Release tag not found"
             //#Attempts 3 times before failing out
