@@ -9,18 +9,8 @@ pipeline
 
   parameters
   {
-    choice
-    (
-      name: 'environment',
-      choices: ['dev', 'test', 'impl', 'prod'],
-      description: 'Environment to run on'
-    )
-    string
-    (
-      name: 'tagSearchingFor',
-      defaultValue: '',
-      description: 'Tag to search for'
-    )
+    choice(name: 'environment', choices: ['dev', 'test', 'impl', 'prod'], description: 'Environment to run on')
+    string(name: 'tagSearchingFor', defaultValue: '', description: 'Tag to search for')
   }
 
   stages
