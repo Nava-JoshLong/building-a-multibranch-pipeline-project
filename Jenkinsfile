@@ -43,10 +43,7 @@ pipeline
             //#If not found, notify user and prompt for new string
             //#https://issues.jenkins-ci.org/browse/JENKINS-34521
             tagSearchingFor = input
-            (
-              id: 'tagSearch', message: 'Tag not found', parameters:
-                [$class: 'StringParameterDefinition', defaultValue: 'Release Tag', description: 'Tag to search for', name: 'Release']
-            )
+            (id: 'tagSearch', message: 'Tag not found', parameters: [$class: 'StringParameterDefinition', defaultValue: 'Release Tag', description: 'Tag to search for', name: 'Release'])
             //#if the userInput is found, exit loop
             TAG_FOUND = sh (
             script: "git log -1 --pretty=%B | grep '${tagSearchingFor}'",
