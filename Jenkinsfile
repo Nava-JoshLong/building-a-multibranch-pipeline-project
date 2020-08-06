@@ -64,28 +64,4 @@ pipeline
       }
     }
   }
-  post
-  {
-    always
-    {
-      //#This will always run
-    }
-    success
-    {
-      //#This will only run if the pipeline runs successfully
-    }
-    failure
-    {
-      //#This will only run if the pipeline fails running
-    }
-    unstable
-    {
-      //#This will only run if the pipeline is marked unstable
-    }
-    changed
-    {
-      //#This will only run if the state changes
-      //#Like if it was failing before but now is successful
-    }
-  }
 }
