@@ -45,12 +45,7 @@ pipeline
             tagSearchingFor = input
             (
               id: 'tagSearch', message: 'Tag not found', parameters:
-                [
-                  $class: 'StringParameterDefinition',
-                  defaultValue: 'Release Tag',
-                  description: 'Tag to search for',
-                  name: 'Release'
-                ]
+                [$class: 'StringParameterDefinition', defaultValue: 'Release Tag', description: 'Tag to search for', name: 'Release']
             )
             //#if the userInput is found, exit loop
             TAG_FOUND = sh (
