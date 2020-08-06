@@ -40,17 +40,25 @@ pipeline
           //#Attempts 3 times before failing out
           retry(3)
           {
-            //#If not found, notify user and prompt for new string
-            //#https://issues.jenkins-ci.org/browse/JENKINS-34521
-            tagSearchingFor = input
-            (id: 'tagSearch', message: 'Tag not found', parameters: [$class: 'StringParameterDefinition', defaultValue: 'Release Tag', description: 'Tag to search for', name: 'Release'])
-            //#if the userInput is found, exit loop
-            TAG_FOUND = sh (
-            script: "git log -1 --pretty=%B | grep '${tagSearchingFor}'",
-            returnStatus: true
-            ) == 0
-            echo "Tag Found: ${TAG_FOUND}"
-            //#Otherwise, it will run again
+            script
+            {
+              //#If not found, notify user and prompt for new string
+              //#https://issues.jenkins-ci.org/browse/JENKINS-34521
+              def userInput = input(id: 'tagSearch', message: 'Tag not found',
+              parameters: [
+              $class: 'StringParameterDefinition',
+              defaultValue: 'Release Tag',
+              description: 'Tag to search for',
+              name: 'Release'
+              ])
+              //#if the userInput is found, exit loop
+              TAG_FOUND = sh (
+              script: "git log -1 --pretty=%B | grep '${userInput}'",
+              returnStatus: true
+              ) == 0
+              echo "Tag Found: ${TAG_FOUND}"
+              //#Otherwise, it will run again
+            }
           }
         }
       }
