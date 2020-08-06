@@ -42,8 +42,7 @@ pipeline
             //#Attempts 3 times before failing out
             retry(3)
             {
-              script
-              {
+
                 //#If not found, notify user and prompt for new string
                 //#https://issues.jenkins-ci.org/browse/JENKINS-34521
                 def userInput = input(id: 'tagSearch', message: 'Tag not found',
@@ -60,7 +59,7 @@ pipeline
                 ) == 0
                 echo "Tag Found: ${TAG_FOUND}"
                 //#Otherwise, it will run again
-              }
+
             }
           }
         }
