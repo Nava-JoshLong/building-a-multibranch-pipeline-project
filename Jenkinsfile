@@ -23,32 +23,32 @@ pipeline
         {
           echo "=========== Scan Stage ==========="
 
-            //Use string from user to search for tags
-            //#log shows just the commit logs
-            //#--pretty is the format of the output
-            //#-1 only displays 1 commit
-            //#https://stackoverflow.com/a/38783622
-            TAG_FOUND = sh (
-            script: "git log -1 --pretty=%B | grep '${tagSearchingFor}'",
-            returnStatus: true
-            ) == 0
-            echo "Tag Found: ${TAG_FOUND}"
+          //Use string from user to search for tags
+          //#log shows just the commit logs
+          //#--pretty is the format of the output
+          //#-1 only displays 1 commit
+          //#https://stackoverflow.com/a/38783622
+          TAG_FOUND = sh (
+          script: "git log -1 --pretty=%B | grep '${tagSearchingFor}'",
+          returnStatus: true
+          ) == 0
+          echo "Tag Found: ${TAG_FOUND}"
+
           //#If the release tag is not found
           if(!TAG_FOUND)
           {
-            echo "Release tag not found"
+            echo "Release tag: ${tagSearchingFor} not found"
             //#Attempts 3 times before failing out
             retry(3)
             {
-
                 //#If not found, notify user and prompt for new string
                 //#https://issues.jenkins-ci.org/browse/JENKINS-34521
                 def userInput = input(id: 'tagSearch', message: 'Tag not found',
                 parameters: [
-                $class: 'StringParameterDefinition',
+                string(
                 defaultValue: 'Release Tag',
                 description: 'Tag to search for',
-                name: 'Release'
+                name: 'Release')
                 ])
                 //#if the userInput is found, exit loop
                 TAG_FOUND = sh (
@@ -57,7 +57,6 @@ pipeline
                 ) == 0
                 echo "Tag Found: ${TAG_FOUND}"
                 //#Otherwise, it will run again
-
             }
           }
         }
