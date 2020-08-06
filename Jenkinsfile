@@ -13,7 +13,7 @@ pipeline
     (
       name: 'environment',
       choices: ['dev', 'test', 'impl', 'prod'],
-      description: 'Enviromet to run on'
+      description: 'Environment to run on'
     )
     string
     (
