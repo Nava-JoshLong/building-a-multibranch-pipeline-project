@@ -35,12 +35,11 @@ pipeline
           echo "Tag Found: ${TAG_FOUND}"
 
           //#If the release tag is not found
-          if(!TAG_FOUND)
+          while(!TAG_FOUND)
           {
             echo "Release tag: ${tagSearchingFor} not found"
             //#Attempts 3 times before failing out
-            retry(3)
-            {
+
                 //#If not found, notify user and prompt for new string
                 //#https://issues.jenkins-ci.org/browse/JENKINS-34521
                 def userInput = input(id: 'tagSearch', message: 'Tag not found',
@@ -57,7 +56,6 @@ pipeline
                 ) == 0
                 echo "Tag Found: ${TAG_FOUND}"
                 //#Otherwise, it will run again
-            }
           }
         }
       }
