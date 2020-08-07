@@ -26,10 +26,15 @@ pipeline
             echo "=========== Scan Stage ==========="
 
             //Use string from user to search for tags
-            //log shows just the commit logs
+            //log searches just the commit logs
             //--pretty is the format of the output
-            //-1 only displays 1 commit
+            //-1 only searches the last commit
+            //To make more precise, add -w to grep
+            //To make case insensitive, add -i to grep
             //https://stackoverflow.com/a/38783622
+            //git log --grep="#" -w --pretty="%h" --name-only --no-commit-id
+            //git log --grep="#" --pretty="%h" --name-only --no-commit-id
+            //git log --oneline | grep -w "#6"
             TAG_FOUND = sh (
             script: "git log -1 --pretty=%B | grep '${tagSearchingFor}'",
             returnStatus: true
@@ -42,7 +47,6 @@ pipeline
               echo "Release tag: ${tagSearchingFor} not found"
 
               //If not found, notify user and prompt for new string
-              //https://issues.jenkins-ci.org/browse/JENKINS-34521
               def userInput = input(id: 'tagSearch', message: 'Tag not found',
                 parameters: [
                   string(
@@ -130,22 +134,6 @@ pipeline
         //will be XXX_24.3.03. The folder structure can be determined.
       }
     }
-    stage('Release')
-    {
-      steps
-      {
-        echo "=========== Release Stage ==========="
-        //On clicking of the release button, obtain the latest build from the
-        //release artifacts from the “Approved” build above.
-
-        //Using SQLPlus plugin, first deploy the
-
-        //Next step is moving the shell scripts to required folders on the
-        //target server.
-
-        //Scan deployed code using Fortify and SonarQube.
-      }
-    }
     stage('Gate Review')
     {
       steps
@@ -161,6 +149,22 @@ pipeline
         //The Release Manager approves the latest build of the release using a
         //drop box/check box with Submit and a confirmation question “Are you
         //sure you want to approve this build?”
+      }
+    }
+    stage('Release')
+    {
+      steps
+      {
+        echo "=========== Release Stage ==========="
+        //On clicking of the release button, obtain the latest build from the
+        //release artifacts from the “Approved” build above.
+
+        //Using SQLPlus plugin, first deploy the
+
+        //Next step is moving the shell scripts to required folders on the
+        //target server.
+
+        //Scan deployed code using Fortify and SonarQube.
       }
     }
   }
