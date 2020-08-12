@@ -149,7 +149,7 @@ pipeline
         //The Release Manager approves the latest build of the release using a
         //drop box/check box with Submit and a confirmation question “Are you
         //sure you want to approve this build?”
-        input("Are you sure you want to approve this?")
+        input message: 'Are you sure you want to approve this?'(Click "Proceed" to continue)
       }
     }
     stage('Release')
