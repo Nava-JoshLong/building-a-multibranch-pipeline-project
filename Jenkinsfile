@@ -36,7 +36,7 @@ pipeline
             //git log --grep="#" --pretty="%h" --name-only --no-commit-id
             //git log --oneline | grep -w "#6"
             TAG_FOUND = sh (
-            script: "git log -1 --pretty=%B | grep '${tagSearchingFor}'",
+            script: "pwd; git log -1 --pretty=%B | grep '${tagSearchingFor}'",
             returnStatus: true
             ) == 0
             echo "Tag Found: ${TAG_FOUND}"
