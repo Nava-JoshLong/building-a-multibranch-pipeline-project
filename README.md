@@ -18,4 +18,4 @@ contains shell scripts with commands that are executed when Jenkins processes
 either the "Deliver for development" or "Deploy for production" stages of your
 Pipeline (depending on the branch that Jenkins builds from).
 
-Testing if changed file output works
+Testing if changed file output works. Need to change both

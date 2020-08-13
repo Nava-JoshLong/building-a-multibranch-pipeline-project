@@ -85,6 +85,7 @@ pipeline
         //in a Github/Release Repository to be determined) they are being picked
         //from. This should be configurable ideally using a YAML config file –
         //mapping all SQL folders to one of these three folders.)
+        //Testing file listing
       }
     }
     stage('Post Build Test')
