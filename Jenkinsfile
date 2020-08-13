@@ -87,10 +87,13 @@ pipeline
         //from. This should be configurable ideally using a YAML config file –
         //mapping all SQL folders to one of these three folders.)
         HASH_FOUND = sh (
-          script: "git log --pretty=oneline | grep '${tagSearchingFor}'",
+          script: "git log --pretty=oneline | grep '${tagSearchingFor}' | awk '{print $1}'",
           returnStatus: true
         ) == 0
-        echo "Tag Found: ${TAG_FOUND}"
+        FILES_FOUND = sh (
+          script: "git show --name-only --pretty=oneline --stat ${HASH_FOUND} | tail -n+2"
+        )
+        echo "Tag Found: ${FILES_FOUND}"
       }
       }
     }
