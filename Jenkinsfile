@@ -15,6 +15,13 @@ pipeline
 
   stages
   {
+    stage('Checkout SCM')
+    {
+      steps
+      {
+				checkout scm
+      }
+    }
     stage('Scan')
     {
       steps
