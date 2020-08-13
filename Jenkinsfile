@@ -88,7 +88,7 @@ pipeline
         //mapping all SQL folders to one of these three folders.)
         HASH_FOUND = sh (
           returnStdout: true,
-          script: "git log --pretty=oneline | grep '${tagSearchingFor}' | awk '{print \$1
+          script: "git log --pretty=oneline | grep '${tagSearchingFor}' | awk '{print \$1}'
         ).trim()
         FILES_FOUND = sh (
           returnStdout: true,
