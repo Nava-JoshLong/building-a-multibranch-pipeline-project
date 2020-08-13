@@ -77,6 +77,7 @@ pipeline
     {
       steps
       {
+      script{
         echo "=========== Build Stage ==========="
         //Code tagged with the search string or associated with the release is
         //gathered and placed on the Linux server into three directories -
@@ -85,7 +86,7 @@ pipeline
         //from. This should be configurable ideally using a YAML config file –
         //mapping all SQL folders to one of these three folders.)
         COMMIT_HASH = sh (
-          script: "git log --oneline | grep -w '${userInput}' | head -n1 | awk '{print $1;}'"
+          script: "git log --oneline | grep -w '${tagSearchingFor}' | head -n1 | awk '{print $1;}'"
           returnStatus: true
         ) == 0
         FILE_LIST = sh (
@@ -93,6 +94,7 @@ pipeline
           returnStatus: true
         ) == 0
         echo "File List: ${FILE_LIST}"
+        }
       }
     }
     stage('Post Build Test')
