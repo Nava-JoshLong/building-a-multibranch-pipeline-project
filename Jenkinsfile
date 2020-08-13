@@ -86,16 +86,12 @@ pipeline
         //in a Github/Release Repository to be determined) they are being picked
         //from. This should be configurable ideally using a YAML config file –
         //mapping all SQL folders to one of these three folders.)
-        COMMIT_HASH = sh (
-          script: "git log --oneline | grep -w '${tagSearchingFor}' | head -n1 | awk '{print $1;}'"
+        TAG_FOUND = sh (
+          script: "git log -1 --pretty=%B | grep '${tagSearchingFor}'",
           returnStatus: true
         ) == 0
-        FILE_LIST = sh (
-          script: "git show --name-only --format=oneline --stat '${COMMIT_HASH}' | tail -n+2"
-          returnStatus: true
-        ) == 0
-        echo "File List: ${FILE_LIST}"
-        }
+        echo "Tag Found: ${TAG_FOUND}"
+      }
       }
     }
     stage('Post Build Test')
