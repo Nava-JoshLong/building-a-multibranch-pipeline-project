@@ -77,7 +77,8 @@ pipeline
     {
       steps
       {
-      script{
+      script
+      {
         echo "=========== Build Stage ==========="
         //Code tagged with the search string or associated with the release is
         //gathered and placed on the Linux server into three directories -
