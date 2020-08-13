@@ -165,7 +165,7 @@ pipeline
         //Next step is moving the shell scripts to required folders on the
         //target server.
 
-        //Scan deployed code using Fortify and SonarQube.
+        //Scan deployed code using Fortify and SonarQube
       }
     }
   }
