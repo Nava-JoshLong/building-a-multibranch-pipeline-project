@@ -62,7 +62,6 @@ pipeline
                     name: 'Release')
                   ])
               tagSearchingFor = userInput
-
               //if the userInput is found, exit loop
               TAG_FOUND = sh (
                 script: "git log -1 --pretty=%B | grep '${userInput}'",
@@ -85,7 +84,15 @@ pipeline
         //in a Github/Release Repository to be determined) they are being picked
         //from. This should be configurable ideally using a YAML config file –
         //mapping all SQL folders to one of these three folders.)
-        //Testing file listing
+        COMMIT_HASH = sh (
+          script: "git log --oneline | grep -w '${userInput}' | head -n1 | awk '{print $1;}'"
+          returnStatus: true
+        ) == 0
+        FILE_LIST = sh (
+          script: "git show --name-only --format=oneline --stat '${COMMIT_HASH}' | tail -n+2"
+          returnStatus: true
+        ) == 0
+        echo "File List: ${FILE_LIST}"
       }
     }
     stage('Post Build Test')
