@@ -15,6 +15,13 @@ pipeline
 
   stages
   {
+    stage('Cleanup Workspace')
+    {
+      steps
+      {
+        sh 'rm -rf *'
+      }
+    }
     stage('Checkout SCM')
     {
       steps
@@ -77,25 +84,26 @@ pipeline
     {
       steps
       {
-      script
-      {
-        echo "=========== Build Stage ==========="
-        //Code tagged with the search string or associated with the release is
-        //gathered and placed on the Linux server into three directories -
-        // (on server or on S3 or
-        //in a Github/Release Repository to be determined) they are being picked
-        //from. This should be configurable ideally using a YAML config file –
-        //mapping all SQL folders to one of these three folders.)
-        HASH_FOUND = sh (
-          returnStdout: true,
-          script: "git log --pretty=oneline | grep '${tagSearchingFor}' | awk '{print \$1}'"
-        ).trim()
-        FILES_FOUND = sh (
-          returnStdout: true,
-          script: "git show --name-only --pretty=oneline --stat ${HASH_FOUND} | tail -n+2"
-        ).trim()
-        echo "Tag Found: ${FILES_FOUND}"
-      }
+        script
+        {
+          echo "=========== Build Stage ==========="
+          //Code tagged with the search string or associated with the release is
+          //gathered and placed on the Linux server into three directories -
+          // (on server or on S3 or
+          //in a Github/Release Repository to be determined) they are being picked
+          //from. This should be configurable ideally using a YAML config file –
+          //mapping all SQL folders to one of these three folders.)
+          //Finds the commit's hash and changed files
+          HASH_FOUND = sh (
+            returnStdout: true,
+            script: "git log --pretty=oneline | grep '${tagSearchingFor}' | awk '{print \$1}'"
+          ).trim()
+          FILES_FOUND = sh (
+            returnStdout: true,
+            script: "git show --name-only --pretty=oneline --stat ${HASH_FOUND} | tail -n+2"
+          ).trim()
+          echo "Tag Found: ${FILES_FOUND}"
+        }
       }
     }
     stage('Post Build Test')
@@ -152,6 +160,7 @@ pipeline
         //will be XXX_24.3.03. The folder structure can be determined.
       }
     }
+    //Maybe have these 2 steps be in a separate pipeline since review is needed
     stage('Gate Review')
     {
       steps
@@ -187,4 +196,13 @@ pipeline
       }
     }
   }
+  //https://www.jenkins.io/doc/pipeline/tour/tests-and-artifacts/
+  post
+  {
+    always
+    {
+      archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+      junit 'build/reports/**/*.xml'
+      }
+    }
 }
