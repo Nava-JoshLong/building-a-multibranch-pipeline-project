@@ -1,3 +1,6 @@
+//Variables to be used in script
+def scmVars = 'UNKNOWN'
+
 pipeline
 {
   //https://www.jenkins.io/doc/book/pipeline/syntax/
@@ -13,9 +16,6 @@ pipeline
     string(name: 'install_dir', defaultValue: '', description: 'Directory to install in')
     string(name: 'log_dir', defaultValue: '', description: 'Directory to store logs')
   }
-
-  //Variables to be used in script
-  def scmVars = 'UNKNOWN'
 
   stages
   {
