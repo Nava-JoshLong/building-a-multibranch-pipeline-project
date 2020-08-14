@@ -48,8 +48,9 @@ pipeline
     {
       steps
       {
+        echo env.GIT_BRANCH
         sh '''
-          echo env.GIT_BRANCH
+
           git diff --name-only origin/master > changedFiles.lst
           cat changedFiles.lst
         '''
