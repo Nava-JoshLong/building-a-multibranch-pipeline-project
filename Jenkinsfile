@@ -25,12 +25,15 @@ pipeline
     }
     stage("Parameter Checking")
     {
-      script
+      steps
       {
-        if (params.log_dir == '' || params.install_dir == '')
+        script
         {
-          currentBuild.result = 'ABORTED'
-          error('Paramters are not set')
+          if (params.log_dir == '' || params.install_dir == '')
+          {
+            currentBuild.result = 'ABORTED'
+            error('Paramters are not set')
+          }
         }
       }
     }
