@@ -14,6 +14,9 @@ pipeline
     string(name: 'log_dir', defaultValue: '', description: 'Directory to store logs')
   }
 
+  //Variables to be used in script
+  def scmVars
+
   stages
   {
     stage('Cleanup Workspace')
@@ -41,14 +44,14 @@ pipeline
     {
       steps
       {
-				checkout scm
+				scmVars = checkout scm
       }
     }
     stage("Changed File List")
     {
       steps
       {
-        echo env.GIT_BRANCH
+        echo scmVars.GIT_BRANCH
         sh '''
 
           git diff --name-only origin/master > changedFiles.lst
