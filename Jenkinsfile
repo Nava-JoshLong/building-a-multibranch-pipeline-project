@@ -49,7 +49,7 @@ pipeline
       steps
       {
         sh '''
-          git diff --name-only origin/master > changedFiles.lst
+          git diff --name-only origin..master > changedFiles.lst
           cat changedFiles.lst
         '''
       }
