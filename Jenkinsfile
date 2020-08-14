@@ -32,7 +32,7 @@ pipeline
           if (params.log_dir == '' || params.install_dir == '')
           {
             currentBuild.result = 'ABORTED'
-            error('Paramters are not set')
+            error('Parameters are not set')
           }
         }
       }
@@ -42,6 +42,16 @@ pipeline
       steps
       {
 				checkout scm
+      }
+    }
+    stage("Changed File List")
+    {
+      steps
+      {
+        sh '''
+          git diff --name-only origin/master > changedFiles.lst
+          cat changedFiles.lst
+        '''
       }
     }
   }
