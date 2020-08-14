@@ -15,7 +15,7 @@ pipeline
   }
 
   //Variables to be used in script
-  def scmVars
+  def scmVars = 'UNKNOWN'
 
   stages
   {
