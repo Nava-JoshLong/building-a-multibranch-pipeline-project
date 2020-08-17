@@ -58,8 +58,9 @@ pipeline
       steps
       {
         echo scmVars.GIT_BRANCH
-        curBranch = ${scmVars.GIT_BRANCH}
+
         script{
+        curBranch = ${scmVars.GIT_BRANCH}
         FILES_FOUND = sh (
           returnStdout: true,
           script: "git diff --name-only ${curBranch}/master"
