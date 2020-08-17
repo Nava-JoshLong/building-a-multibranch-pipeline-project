@@ -46,14 +46,12 @@ pipeline
       {
         script
         {
-        //attempting to save SCM variables since it does not save the branch name
-        //it is on during the checkout. Getting an error here when trying to save it
           echo "Saving SCM variables"
           scmVars = checkout scm
         }
       }
     }
-    stage("Changed File List")
+    stage("Get Changed Files")
     {
       steps
       {
@@ -66,8 +64,14 @@ pipeline
             returnStdout: true,
             script: "git diff --name-only ${curBranch}..remotes/origin/master"
           ).trim()
-          sh "cat ${FILES_FOUND} > changedFiles.lst"
         }
+      }
+    }
+    stage("Parse Changed Files")
+    {
+      steps
+      {
+        echo FILES_FOUND
       }
     }
   }
