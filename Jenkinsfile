@@ -58,17 +58,16 @@ pipeline
       steps
       {
         echo scmVars.GIT_BRANCH
-
-        script{
-        curBranch = 'remotes/origin/'
-        curBranch += scmVars.GIT_BRANCH
-        FILES_FOUND = sh (
-          returnStdout: true,
-          script: "git diff --name-only ${curBranch}..remotes/origin/master"
-        ).trim()
-        echo FILES_FOUND
+        script
+        {
+          curBranch = 'remotes/origin/'
+          curBranch += scmVars.GIT_BRANCH
+          FILES_FOUND = sh (
+            returnStdout: true,
+            script: "git diff --name-only ${curBranch}..remotes/origin/master"
+          ).trim()
+          echo FILES_FOUND > changedFiles.lst
         }
-
       }
     }
   }
