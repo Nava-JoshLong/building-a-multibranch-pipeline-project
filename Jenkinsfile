@@ -66,7 +66,7 @@ pipeline
             returnStdout: true,
             script: "git diff --name-only ${curBranch}..remotes/origin/master"
           ).trim()
-          echo FILES_FOUND > changedFiles.lst
+          sh "echo FILES_FOUND > changedFiles.lst"
         }
       }
     }
