@@ -60,7 +60,8 @@ pipeline
         echo scmVars.GIT_BRANCH
 
         script{
-        curBranch = 'remotes/origin/'scmVars.GIT_BRANCH
+        curBranch = 'remotes/origin/'
+        curBranch += scmVars.GIT_BRANCH
         FILES_FOUND = sh (
           returnStdout: true,
           script: "git diff --name-only ${curBranch}..remotes/origin/master"
