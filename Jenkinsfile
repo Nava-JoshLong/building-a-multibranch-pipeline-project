@@ -59,7 +59,7 @@ pipeline
       {
         echo scmVars.GIT_BRANCH
         sh '''
-          git diff --name-only $(echo scmVars.GIT_BRANCH)/master > changedFiles.lst
+          git diff --name-only ${scmVars.GIT_BRANCH}/master > changedFiles.lst
           cat changedFiles.lst
         '''
       }
