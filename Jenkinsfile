@@ -61,7 +61,7 @@ pipeline
         sh '''
           branchOn = $(echo "remotes/origin/"${env.JOB_NAME})
           echo $branchOn
-          git diff --name-only $branchOn/master > changedFiles.lst
+          git diff --name-only ${branchOn}/master > changedFiles.lst
           cat changedFiles.lst
         '''
       }
