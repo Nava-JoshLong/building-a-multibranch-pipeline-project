@@ -58,7 +58,7 @@ pipeline
       steps
       {
         echo scmVars.GIT_BRANCH
-        def curBranch = $(echo scmVars.GIT_BRANCH)
+        def curBranch = ${scmVars.GIT_BRANCH}
         script{
         FILES_FOUND = sh (
           returnStdout: true,
