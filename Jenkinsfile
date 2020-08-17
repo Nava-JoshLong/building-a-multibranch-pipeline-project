@@ -44,7 +44,10 @@ pipeline
     {
       steps
       {
-				scmVars = checkout scm
+      //attempting to save SCM variables since it does not save the branch name
+      //it is on during the checkout. Getting an error here when trying to save it
+        echo "Saving SCM variables"
+        scmVars = checkout scm
       }
     }
     stage("Changed File List")
