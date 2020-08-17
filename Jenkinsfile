@@ -59,7 +59,7 @@ pipeline
       {
         echo scmVars.GIT_BRANCH
         sh '''
-          def branchOn = "remotes/origin/" ${env.JOB_NAME}
+          def branchOn = "remotes/origin/" + ${env.JOB_NAME}
           echo $branchOn
           git diff --name-only $branchOn/master > changedFiles.lst
           cat changedFiles.lst
