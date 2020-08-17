@@ -58,6 +58,10 @@ pipeline
       steps
       {
         echo scmVars.GIT_BRANCH
+        FILES_FOUND = sh (
+          returnStdout: true,
+          script: "git diff --name-only ${scmVARS.GIT_BRANCH}/master"
+        ).trim()
         sh '''
           git diff --name-only ${scmVars.GIT_BRANCH}/master > changedFiles.lst
           cat changedFiles.lst
