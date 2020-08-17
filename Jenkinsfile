@@ -60,7 +60,7 @@ pipeline
         echo scmVars.GIT_BRANCH
         sh '''
 
-          git diff --name-only origin/master > changedFiles.lst
+          git diff --name-only @{remote}/master > changedFiles.lst
           cat changedFiles.lst
         '''
       }
