@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Switch user to root
+      become: true
+      become_user: root
+      shell: clear
+
+    - name: Change working directory
+      shell: cd {{ working_dir }}
+
+    - name: Connect to SQLPlus
+      shell: "sqlplus /nolog @../../scripts/masterScript.sql"
+      register: connectOutput
+
+    - name: Response from connection
+      debug: msg="{{ connectOutput.stdout_lines }}"
